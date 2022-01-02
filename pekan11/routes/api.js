@@ -2,21 +2,21 @@ const express = require("express");
 
 const router = express.Router();
 
-// routing untuk murid
-router.get("/murid", function(req, res){
-    
-});
+router.get("/", (req, res) => {
+    res.send("Semangat Seli");
+  });
 
-router.post("/murid", function(req, res){
-    
-});
+// Import Student Controller
+const StudentController = require("../controllers/StudentControllers");
 
-router.put("/murid/:id", function(req, res){
-    
-});
+// routing untuk students
+router.get("/students", StudentController.index);
 
-router.delete("/murid/:id", function(req, res){
-    res.send("Menghapus data murid "  + req.params.id);
-});
+router.post("/students", StudentController.store);
 
+router.put("/students/:id", StudentController.update);
+
+router.delete("/students/:id", StudentController.destroy);
+
+//Export router
 module.exports = router;

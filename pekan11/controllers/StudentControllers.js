@@ -1,17 +1,54 @@
-// buat class
+//Import data students
+const students = require("../data/students");
+
+// buat class Student Controller
 class StudentController {
     index(req, res) {
-        res.send("Menampilkan data murid");
-      }
+        const data = {
+            message: "Menampilkan semua students",
+            data: students,
+          };
+      
+          res.json(data);
+    }
     store(req, res) {
-        res.send("Menambahkan data murid");
-      }
+        const {nama} = req.body;
+
+        students.push(nama);
+
+        const data = {
+        message: `Menambahkan Data Student: ${nama}`,
+        data: students,
+        };
+
+        res.json(data);
+    }
     
       update(req, res) {
-        res.send("Mengedit data murid " + req.params.id);
-      }
+        const { id } = req.params;
+        const { nama } = req.body;
+
+        students[id] = nama;
+        const data = {
+        message: `Mengubah Student id ${id}, nama ${nama}`,
+        data: students,
+        };
+
+        res.json(data);
+    }
     
       destroy(req, res) {
-        res.send("Menghapus data murid "  + req.params.id);
-      }
+        const {id} = req.params;
+        students.splice(id, 1);
+        const data = {
+        message: `Menghapus Student id ${id}`,
+        data: students,
+        };
+
+        res.json(data);
+        }
 }
+
+const object = new StudentController()
+
+module.exports = object;
